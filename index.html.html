@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#eef0e5" />
+  <title>Gerald & Nicole — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --sage:#71816a; --deep:#354b3d; --cream:#f8f6ef; --paper:#fffdf7; --blush:#d9b9ac; --ink:#344238; --muted:#737b70; --line:#d9dfd0; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--cream); color:var(--ink); font-family:'Montserrat',sans-serif; font-weight:300; }
+    button,input,select,textarea { font:inherit; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    .topbar { position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:14px clamp(16px,5vw,64px); background:rgba(248,246,239,.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(113,129,106,.2); }
+    .brand { font-family:'Cormorant Garamond',serif; font-size:1.35rem; letter-spacing:.04em; }
+    .nav { display:flex; gap:18px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .nav a { color:var(--deep); text-decoration:none; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; }
+    .hero { min-height:calc(100vh - 60px); padding:54px 20px 70px; display:grid; place-items:center; position:relative; overflow:hidden; background:radial-gradient(ellipse at 50% 35%, #fffdf8 0%, #f5f3e9 53%, #e9eddf 100%); }
+    .hero:before,.hero:after { content:'✿'; position:absolute; color:#a6b49a; opacity:.42; font-size:clamp(8rem,20vw,18rem); line-height:1; pointer-events:none; }
+    .hero:before { left:-2rem; top:10%; transform:rotate(-24deg); }
+    .hero:after { right:-2rem; bottom:4%; transform:rotate(25deg); }
+    .hero-inner { position:relative; z-index:1; width:min(720px,100%); text-align:center; }
+    .eyebrow { text-transform:uppercase; letter-spacing:.28em; font-size:.68rem; line-height:1.8; color:var(--sage); }
+    .monogram { width:72px; height:72px; border:1px solid #a7b29d; border-radius:50%; display:grid; place-items:center; margin:24px auto; font-family:'Cormorant Garamond',serif; font-size:1.55rem; color:var(--deep); }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { font-family:'Great Vibes',cursive; font-size:clamp(4rem,12vw,8rem); font-weight:400; line-height:1.04; margin:10px 0 14px; color:var(--deep); }
+    .amp { color:#a57d70; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.65em; }
+    .hero-date { font-family:'Cormorant Garamond',serif; font-size:1.4rem; letter-spacing:.15em; margin:22px 0 8px; }
+    .hero-sub { color:var(--muted); font-size:.82rem; letter-spacing:.05em; line-height:1.8; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 20px; border:1px solid var(--sage); background:var(--deep); color:#fffdf7; text-decoration:none; text-transform:uppercase; letter-spacing:.13em; font-size:.68rem; cursor:pointer; transition:transform .2s,background .2s; }
+    .btn:hover { transform:translateY(-2px); background:#4a6251; }
+    .btn.secondary { background:transparent; color:var(--deep); }
+    .envelope-wrap { margin:32px auto 0; width:min(310px,90%); height:190px; perspective:900px; cursor:pointer; outline-offset:8px; }
+    .envelope { height:100%; width:100%; position:relative; background:#e1e6d8; border:1px solid #c2cdb9; box-shadow:0 15px 30px #394c3d18; }
+    .envelope:before { content:''; position:absolute; inset:0; background:linear-gradient(140deg,transparent 49.5%,#c6d0bd 50%,transparent 50.5%),linear-gradient(220deg,transparent 49.5%,#d1dac9 50%,transparent 50.5%); }
+    .flap { position:absolute; inset:0 0 auto; height:62%; background:#cbd5c3; clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top; transition:transform .8s ease; z-index:3; }
+    .seal { position:absolute; top:42%; left:50%; transform:translate(-50%,-50%); z-index:4; width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:#a77e70; color:#fff7ee; font-family:'Cormorant Garamond',serif; font-size:1.2rem; box-shadow:0 3px 8px #0002; transition:opacity .3s; }
+    .letter { position:absolute; left:8%; right:8%; bottom:8%; height:82%; background:var(--paper); z-index:2; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:12px; transition:transform .8s ease; }
+    .letter strong { font-family:'Great Vibes',cursive; font-size:2rem; font-weight:400; }
+    .letter small { margin-top:8px; font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; }
+    .envelope.open .flap { transform:rotateX(180deg); z-index:1; }
+    .envelope.open .letter { transform:translateY(-54px); }
+    .envelope.open .seal { opacity:0; }
+    .section { padding:82px 20px; }
+    .section.alt { background:#e9eddf; }
+    .container { width:min(1000px,100%); margin:auto; }
+    .section-heading { text-align:center; margin-bottom:38px; }
+    .section-heading h2 { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(2.4rem,6vw,4rem); margin:8px 0 10px; color:var(--deep); }
+    .section-heading p { color:var(--muted); font-size:.85rem; line-height:1.8; }
+    .ornament { color:#a77e70; letter-spacing:.5em; font-size:1rem; }
+    .countdown { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; width:min(620px,100%); margin:28px auto 0; }
+    .timebox { padding:22px 8px; background:rgba(255,253,247,.8); border:1px solid var(--line); text-align:center; }
+    .timebox strong { display:block; font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:500; color:var(--deep); }
+    .timebox span { text-transform:uppercase; letter-spacing:.13em; font-size:.58rem; color:var(--muted); }
+    .details-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .detail-card { text-align:center; padding:30px 24px; background:var(--paper); border:1px solid var(--line); }
+    .detail-icon { font-size:1.6rem; margin-bottom:12px; }
+    .detail-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:500; margin-bottom:12px; }
+    .detail-card p { font-size:.82rem; line-height:1.9; color:var(--muted); }
+    .dress-palette { display:flex; justify-content:center; gap:10px; margin:20px 0; }
+    .swatch { width:36px; height:36px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 1px #ccd2c5; }
+    .rsvp-box { width:min(650px,100%); margin:auto; padding:clamp(22px,5vw,44px); background:var(--paper); border:1px solid var(--line); }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .field { display:flex; flex-direction:column; gap:7px; }
+    .field.full { grid-column:1/-1; }
+    label { font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; color:var(--deep); }
+    input,select,textarea { width:100%; border:1px solid #d5dccf; background:#fffefa; padding:12px; color:var(--ink); border-radius:0; }
+    textarea { min-height:90px; resize:vertical; }
+    .hint { font-size:.72rem; color:var(--muted); line-height:1.7; }
+    .notice { display:none; margin-top:15px; padding:12px; background:#e9eddf; border-left:3px solid var(--sage); font-size:.82rem; line-height:1.7; }
+    .footer { text-align:center; padding:48px 20px; background:var(--deep); color:#f7f5ec; }
+    .footer .script { font-family:'Great Vibes',cursive; font-size:3rem; }
+    .footer p { font-size:.7rem; letter-spacing:.1em; line-height:1.8; opacity:.8; }
+    .music-controls { position:fixed; right:16px; bottom:16px; z-index:8; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+    .music-controls .btn { box-shadow:0 5px 18px #24382c24; }
+    #musicFile { display:none; }
+    .tiny { font-size:.65rem; color:var(--muted); line-height:1.6; }
+    @media(max-width:650px) { .nav { gap:10px; } .nav a { font-size:.58rem; letter-spacing:.06em; } .brand { font-size:1.15rem; } .topbar { align-items:flex-start; } .details-grid,.form-grid { grid-template-columns:1fr; } .field.full { grid-column:auto; } .section { padding:64px 18px; } .countdown { gap:6px; } .timebox { padding:17px 4px; } }
+    @media print {
+      @page { size:A5 portrait; margin:0; }
+      body { background:#fff; }
+      .topbar,.hero,.section,.music-controls,.footer,.no-print { display:none !important; }
+      #printCard { display:flex !important; }
+    }
+    #printCard { display:none; width:148mm; min-height:210mm; margin:0 auto; padding:13mm; background:#f8f6ef; color:#354b3d; align-items:center; justify-content:center; text-align:center; }
+    .print-border { border:1px solid #aab69e; outline:1px solid #aab69e; outline-offset:4mm; width:100%; min-height:182mm; padding:15mm 8mm; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+    .print-names { font-family:'Great Vibes',cursive; font-size:42pt; line-height:1.1; margin:10mm 0; }
+    .print-label { font-size:8pt; letter-spacing:3px; text-transform:uppercase; }
+    .print-date { font-family:'Cormorant Garamond',serif; font-size:19pt; letter-spacing:2px; margin:7mm 0; }
+    .print-copy { font-size:9pt; line-height:1.9; max-width:90%; }
+  </style>
+</head>
+<body>
+  <!-- EDIT HERE: Names, wedding date, venue, time, dress code and RSVP link are marked in the code. -->
+  <nav class="topbar">
+    <div class="brand">G <span style="color:#a77e70">&</span> N</div>
+    <div class="nav"><a href="#countdown">Countdown</a><a href="#details">Details</a><a href="#dresscode">Dress code</a><a href="#rsvp">RSVP</a></div>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="eyebrow">Together with their families</div>
+        <div class="monogram">G <span style="color:#a77e70">&</span> N</div>
+        <p class="eyebrow">Joyfully invite you to celebrate their wedding</p>
+        <h1>Gerald <span class="amp">&</span><br>Nicole</h1>
+        <div class="ornament">❧ ❦ ❧</div>
+        <div class="hero-date">30 · DECEMBER · 2026</div>
+        <p class="hero-sub">A love like a garden, growing more beautiful every day.</p>
+        <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Open the wedding invitation">
+          <div class="envelope" id="envelope">
+            <div class="letter"><strong>You're invited</strong><small>Tap to open your invitation</small></div>
+            <div class="flap"></div><div class="seal">G&nbsp;♥&nbsp;N</div>
+          </div>
+        </div>
+        <p class="tiny" style="margin-top:20px">Please join us as we begin our forever.</p>
+        <a class="btn" href="#details" style="margin-top:8px">Explore invitation ↓</a>
+      </div>
+    </section>
+
+    <section class="section" id="countdown">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow">The day we say “I do”</div><h2>Counting down to forever</h2><div class="ornament">✿ ❧ ✿</div><p>Save the date — Wednesday, December 30, 2026.</p></div>
+        <div class="countdown" aria-live="polite">
+          <div class="timebox"><strong id="days">—</strong><span>Days</span></div><div class="timebox"><strong id="hours">—</strong><span>Hours</span></div><div class="timebox"><strong id="minutes">—</strong><span>Minutes</span></div><div class="timebox"><strong id="seconds">—</strong><span>Seconds</span></div>
+        </div>
+        <p class="tiny" style="text-align:center;margin-top:14px">The celebration runs from 8:00 AM to 12:00 PM.</p>
+      </div>
+    </section>
+
+    <section class="section alt" id="details">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow">A little gathering, a lifetime of love</div><h2>Wedding details</h2><p>We can't wait to celebrate this special day with you.</p></div>
+        <div class="details-grid">
+          <article class="detail-card"><div class="detail-icon">❀</div><h3>Ceremony</h3><p><strong>Wednesday, December 30, 2026</strong><br>Time: 8:00 AM sharp<br>Venue: Please see the venue map below</p><a class="btn secondary" href="https://maps.app.goo.gl/BfxrJQJK97KxKrsg8" target="_blank" rel="noopener">Open wedding venue ↗</a></article>
+          <article class="detail-card"><div class="detail-icon">♡</div><h3>Reception</h3><p>Join us for a morning of love, laughter, and celebration.<br>Time: 8:00 AM–12:00 PM<br>Venue: Same location</p><a class="btn secondary" href="#rsvp">RSVP below ↓</a></article>
+        </div>
+        <p class="tiny" style="text-align:center;margin-top:18px">Please arrive on time. The wedding celebration is strictly from 8:00 AM to 12:00 PM.</p>
+      </div>
+    </section>
+
+    <section class="section" id="dresscode">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow">Your colors, your style</div><h2>Dress code</h2><p>Any color is welcome except white, black, green, and gold.</p></div>
+        <div class="detail-card" style="max-width:650px;margin:auto">
+          <div class="dress-palette"><span class="swatch" style="background:#c9a0b8" title="Dusty rose"></span><span class="swatch" style="background:#a9c7d8" title="Powder blue"></span><span class="swatch" style="background:#b8a5d6" title="Lavender"></span><span class="swatch" style="background:#d77f91" title="Rose pink"></span><span class="swatch" style="background:#e5a36f" title="Peach"></span></div>
+          <h3>Festive formal attire</h3><p>Guests are welcome to wear any color they love, except white, black, green, and gold. Consider lovely shades such as dusty rose, powder blue, lavender, pink, peach, or other colors that make you feel wonderful. Comfortable shoes are encouraged for outdoor areas.</p><p class="tiny">Please avoid white, black, green, and gold. Thank you for celebrating with us!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="rsvp">
+      <div class="container">
+        <div class="section-heading"><div class="eyebrow">Kindly reply</div><h2>Will you join us?</h2><p>Your presence would mean the world to us.</p></div>
+        <div class="rsvp-box">
+          <form id="rsvpForm">
+            <div class="form-grid">
+              <div class="field"><label for="guestName">Your full name *</label><input id="guestName" name="guestName" required placeholder="Enter your name"></div>
+              <div class="field"><label for="attendance">Will you attend? *</label><select id="attendance" name="attendance" required><option value="">Please choose</option><option>Joyfully accepts</option><option>Regretfully declines</option></select></div>
+              <div class="field"><label for="guestCount">Number of guests</label><select id="guestCount" name="guestCount"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+              <div class="field"><label for="diet">Dietary needs</label><input id="diet" name="diet" placeholder="Optional"></div>
+              <div class="field full"><label for="message">A note for the couple</label><textarea id="message" name="message" placeholder="Write a little message (optional)"></textarea></div>
+              <div class="field full"><button class="btn" type="submit">Prepare my RSVP</button><p class="hint">Demo form: this page does not automatically save responses online. Follow the setup guide below to connect a free Google Form.</p><div class="notice" id="rsvpNotice" role="status"></div></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="script">Gerald & Nicole</div><div class="ornament" style="color:#d5b4a8">❧ ❦ ❧</div><p>DECEMBER 30, 2026<br>WITH LOVE, NOW AND ALWAYS</p><button class="btn secondary no-print" onclick="window.print()">Print digital invitation card</button></footer>
+
+  <div id="printCard" aria-hidden="true"><div class="print-border"><div class="ornament">❧ ❦ ❧</div><div class="print-label">Together with their families</div><div class="print-names">Gerald <span style="font-family:'Cormorant Garamond',serif;color:#a77e70">&</span><br>Nicole</div><div class="print-label">Joyfully invite you to celebrate their wedding</div><div class="print-date">30 · DECEMBER · 2026</div><div class="ornament">✿ ❧ ✿</div><p class="print-copy">A love like a garden, growing more beautiful every day.<br><br>We would be honored to have you with us as we begin our forever.<br><br><strong>Ceremony: 8:00 AM sharp<br>Celebration: 8:00 AM–12:00 PM</strong><br><br><a href="https://maps.app.goo.gl/BfxrJQJK97KxKrsg8">Wedding venue: Open Google Maps</a></p></div></div>
+
+  <div class="music-controls no-print"><audio id="bgMusic" loop></audio><button class="btn" id="musicButton" type="button">♫ Add wedding music</button><input id="musicFile" type="file" accept="audio/*"><span class="tiny" style="background:#f8f6ef;padding:4px 7px">Choose an audio file from your device</span></div>
+
+  <script>
+    // 1) ENVELOPE ANIMATION
+    const envelopeWrap = document.getElementById('envelopeWrap');
+    const envelope = document.getElementById('envelope');
+    function toggleEnvelope() { envelope.classList.toggle('open'); }
+    envelopeWrap.addEventListener('click', toggleEnvelope);
+    envelopeWrap.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleEnvelope(); } });
+
+    // 2) COUNTDOWN. Targets 8:00 AM on Dec 30, 2026 (visitor's local time).
+    const weddingDate = new Date(2026, 11, 30, 8, 0, 0).getTime();
+    function updateCountdown() {
+      const difference = weddingDate - Date.now();
+      if (difference <= 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+      }
+      document.getElementById('days').textContent = Math.floor(difference / 86400000);
+      document.getElementById('hours').textContent = Math.floor((difference % 86400000) / 3600000);
+      document.getElementById('minutes').textContent = Math.floor((difference % 3600000) / 60000);
+      document.getElementById('seconds').textContent = Math.floor((difference % 60000) / 1000);
+    }
+    updateCountdown(); setInterval(updateCountdown, 1000);
+
+    // 3) BACKGROUND MUSIC: visitor selects a legally usable audio file on their own device.
+    const musicButton = document.getElementById('musicButton');
+    const musicFile = document.getElementById('musicFile');
+    const bgMusic = document.getElementById('bgMusic');
+    let musicLoaded = false;
+    musicButton.addEventListener('click', () => {
+      if (!musicLoaded) { musicFile.click(); return; }
+      if (bgMusic.paused) { bgMusic.play(); musicButton.textContent = 'Ⅱ Pause music'; }
+      else { bgMusic.pause(); musicButton.textContent = '♫ Play music'; }
+    });
+    musicFile.addEventListener('change', () => {
+      const file = musicFile.files && musicFile.files[0];
+      if (!file) return;
+      bgMusic.src = URL.createObjectURL(file); musicLoaded = true;
+      bgMusic.play().then(() => { musicButton.textContent = 'Ⅱ Pause music'; }).catch(() => { musicButton.textContent = '♫ Play music'; });
+    });
+
+    // 4) RSVP DEMO: validates and previews a message but does not store/send guest data.
+    document.getElementById('rsvpForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const name = String(data.get('guestName') || '').trim();
+      const attendance = String(data.get('attendance') || '');
+      const note = document.getElementById('rsvpNotice');
+      note.style.display = 'block';
+      note.textContent = `Thank you, ${name}! Your response is “${attendance}.” This is a preview only and has not been sent to Gerald and Nicole. Please connect a Google Form to collect real RSVPs.`;
+    });
+  </script>
+</body>
+</html>
